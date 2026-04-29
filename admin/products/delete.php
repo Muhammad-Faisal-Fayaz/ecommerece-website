@@ -7,7 +7,7 @@ require_once '../../includes/csrf.php';
 requireAdmin();
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header('Location: /admin/products/index.php');
+    header('Location: ' . BASE_URL . '/admin/products/index.php');
     exit;
 }
 
@@ -26,8 +26,8 @@ if ($id > 0) {
         if ($product['image'] !== 'default.jpg' && file_exists($imgPath)) {
             unlink($imgPath);
         }
-        redirect('/admin/products/index.php', 'Product deleted.', 'success');
+        redirect(BASE_URL . '/admin/products/index.php', 'Product deleted.', 'success');
     }
 }
 
-redirect('/admin/products/index.php', 'Product not found.', 'error');
+redirect(BASE_URL . '/admin/products/index.php', 'Product not found.', 'error');

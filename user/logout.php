@@ -2,6 +2,7 @@
 // /user/logout.php
 session_start();
 require_once '../includes/csrf.php';
+require_once '../includes/db.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     verify_csrf();
@@ -9,5 +10,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 $_SESSION = [];
 session_destroy();
-header('Location: /user/login.php');
+header('Location: ' . BASE_URL . '/user/login.php');
 exit;

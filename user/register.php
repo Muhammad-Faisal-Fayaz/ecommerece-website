@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             $hashed = password_hash($password, PASSWORD_BCRYPT);
             $pdo->prepare("INSERT INTO users (name, email, password) VALUES (?,?,?)")->execute([$name, $email, $hashed]);
-            redirect('/user/login.php', 'Account created! Please login.', 'success');
+            redirect(BASE_URL . '/user/login.php', 'Account created! Please login.', 'success');
         }
     }
 }
@@ -54,7 +54,7 @@ $pageTitle = 'Create Account — ShopWave';
             </div>
         <?php endif; ?>
 
-        <form method="POST" action="/user/register.php">
+        <form method="POST" action="<?= BASE_URL ?>/user/register.php">
             <?php csrf_field(); ?>
 
             <div class="form-group">

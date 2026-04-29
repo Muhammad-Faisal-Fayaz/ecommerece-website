@@ -10,7 +10,7 @@ $cart  = getCart();
 $total = getCartTotal();
 
 if (empty($cart)) {
-    redirect('/cart.php', 'Your cart is empty.', 'info');
+    redirect(BASE_URL . '/cart.php', 'Your cart is empty.', 'info');
 }
 
 $errors = [];
@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Clear cart
             $_SESSION['cart'] = [];
 
-            redirect('/order_success.php?id=' . $orderId, 'Order placed successfully!', 'success');
+            redirect(BASE_URL . '/order_success.php?id=' . $orderId, 'Order placed successfully!', 'success');
         } catch (Exception $e) {
             $pdo->rollBack();
             $errors[] = 'Order failed. Please try again.';

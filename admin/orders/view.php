@@ -7,12 +7,12 @@ require_once '../../includes/csrf.php';
 requireAdmin();
 
 $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
-if (!$id) redirect('/admin/orders/index.php');
+if (!$id) redirect(BASE_URL . '/admin/orders/index.php');
 
 $stmt = $pdo->prepare("SELECT o.*, u.name as customer, u.email FROM orders o LEFT JOIN users u ON o.user_id = u.id WHERE o.id = ?");
 $stmt->execute([$id]);
 $order = $stmt->fetch();
-if (!$order) redirect('/admin/orders/index.php', 'Order not found.', 'error');
+if (!$order) redirect(BASE_URL . '/admin/orders/index.php', 'Order not found.', 'error');
 
 $items = $pdo->prepare("SELECT * FROM order_items WHERE order_id = ?");
 $items->execute([$id]);
@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['status'])) {
     $status  = $_POST['status'];
     if (in_array($status, $allowed)) {
         $pdo->prepare("UPDATE orders SET status = ? WHERE id = ?")->execute([$status, $id]);
-        redirect('/admin/orders/view.php?id=' . $id, 'Order status updated!', 'success');
+        redirect(BASE_URL . '/admin/orders/view.php?id=' . $id, 'Order status updated!', 'success');
     }
 }
 

@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($errors)) {
         $stmt = $pdo->prepare("INSERT INTO products (name, description, price, stock, category, image) VALUES (?,?,?,?,?,?)");
         $stmt->execute([$name, $description, $price, $stock, $category, $imageName]);
-        redirect('/admin/products/index.php', 'Product created successfully!', 'success');
+        redirect(BASE_URL . '/admin/products/index.php', 'Product created successfully!', 'success');
     }
 }
 

@@ -5,7 +5,7 @@ require_once '../includes/db.php';
 require_once '../includes/auth.php';
 require_once '../includes/csrf.php';
 
-if (isLoggedIn()) { header('Location: /index.php'); exit; }
+if (isLoggedIn()) { header('Location: ' . BASE_URL . '/index.php'); exit; }
 
 $errors = [];
 $email  = '';
@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $pdo->prepare("UPDATE users SET password = ? WHERE id = ?")->execute([$new, $user['id']]);
             }
 
-            $redirect = $user['role'] === 'admin' ? '/admin/index.php' : '/index.php';
+            $redirect = $user['role'] === 'admin' ? BASE_URL . '/admin/index.php' : BASE_URL . '/index.php';
             redirect($redirect, 'Welcome back, ' . $user['name'] . '!', 'success');
         } else {
             $errors[] = 'Invalid email or password.';
@@ -61,7 +61,7 @@ $pageTitle = 'Login — ShopWave';
             </div>
         <?php endif; ?>
 
-        <form method="POST" action="/user/login.php">
+        <form method="POST" action="<?= BASE_URL ?>/user/login.php">
             <?php csrf_field(); ?>
 
             <div class="form-group">

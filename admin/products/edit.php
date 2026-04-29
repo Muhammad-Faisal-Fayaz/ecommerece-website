@@ -7,12 +7,12 @@ require_once '../../includes/csrf.php';
 requireAdmin();
 
 $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
-if (!$id) redirect('/admin/products/index.php');
+if (!$id) redirect(BASE_URL . '/admin/products/index.php');
 
 $stmt = $pdo->prepare("SELECT * FROM products WHERE id = ?");
 $stmt->execute([$id]);
 $product = $stmt->fetch();
-if (!$product) redirect('/admin/products/index.php', 'Product not found.', 'error');
+if (!$product) redirect(BASE_URL . '/admin/products/index.php', 'Product not found.', 'error');
 
 $errors = [];
 $flash  = getFlash();
@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($errors)) {
         $pdo->prepare("UPDATE products SET name=?, description=?, price=?, stock=?, category=?, image=? WHERE id=?")
             ->execute([$name, $description, $price, $stock, $category, $imageName, $id]);
-        redirect('/admin/products/index.php', 'Product updated successfully!', 'success');
+        redirect(BASE_URL . '/admin/products/index.php', 'Product updated successfully!', 'success');
     }
 
     // Re-populate from POST on error

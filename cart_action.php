@@ -6,7 +6,7 @@ require_once 'includes/auth.php';
 require_once 'includes/csrf.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header('Location: /index.php');
+    header('Location: ' . BASE_URL . '/index.php');
     exit;
 }
 
@@ -43,10 +43,10 @@ switch ($action) {
                         'quantity'   => min($quantity, $product['stock']),
                     ];
                 }
-                redirect('/cart.php', 'Product added to cart!', 'success');
+                redirect(BASE_URL . '/cart.php', 'Product added to cart!', 'success');
             }
         }
-        redirect('/index.php', 'Product not found.', 'error');
+        redirect(BASE_URL . '/index.php', 'Product not found.', 'error');
         break;
 
     case 'update':
@@ -66,16 +66,16 @@ switch ($action) {
             ]);
             exit;
         }
-        redirect('/cart.php');
+        redirect(BASE_URL . '/cart.php');
         break;
 
     case 'remove':
         if ($productId > 0 && isset($_SESSION['cart'][$productId])) {
             unset($_SESSION['cart'][$productId]);
         }
-        redirect('/cart.php', 'Item removed from cart.', 'info');
+        redirect(BASE_URL . '/cart.php', 'Item removed from cart.', 'info');
         break;
 
     default:
-        redirect('/cart.php');
+        redirect(BASE_URL . '/cart.php');
 }
