@@ -69,7 +69,7 @@ $pageTitle = 'Shopping Cart — ShopWave';
                                     $<?= number_format($item['price'] * $item['quantity'], 2) ?>
                                 </td>
                                 <td>
-                                    <form action="/cart_action.php" method="POST">
+                                    <form action="<?= BASE_URL ?>/cart_action.php" method="POST">
                                         <?php csrf_field(); ?>
                                         <input type="hidden" name="action" value="remove">
                                         <input type="hidden" name="product_id" value="<?= $id ?>">
@@ -114,11 +114,11 @@ $pageTitle = 'Shopping Cart — ShopWave';
 
                 <div style="margin-top:28px;">
                     <?php if (isLoggedIn()): ?>
-                        <a href="/checkout.php" class="btn btn-primary btn-block">Proceed to Checkout →</a>
+                        <a href="<?= BASE_URL ?>/checkout.php" class="btn btn-primary btn-block">Proceed to Checkout →</a>
                     <?php else: ?>
-                        <a href="/user/login.php" class="btn btn-primary btn-block">Login to Checkout</a>
+                        <a href="<?= BASE_URL ?>/user/login.php" class="btn btn-primary btn-block">Login to Checkout</a>
                         <p style="text-align:center;font-size:13px;color:var(--mid);margin-top:12px;">
-                            Don't have an account? <a href="/user/register.php" style="color:var(--accent);">Register</a>
+                            Don't have an account? <a href="<?= BASE_URL ?>/user/register.php" style="color:var(--accent);">Register</a>
                         </p>
                     <?php endif; ?>
                 </div>

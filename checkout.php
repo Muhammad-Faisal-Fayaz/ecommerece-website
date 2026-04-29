@@ -76,7 +76,7 @@ $user = $stmt->fetch();
 
     <div style="display:grid;grid-template-columns:1fr 360px;gap:48px;align-items:start;">
         <div>
-            <form method="POST" action="/checkout.php">
+            <form method="POST" action="<?= BASE_URL ?>/checkout.php">
                 <?php csrf_field(); ?>
 
                 <div style="background:var(--white);border:1px solid var(--light);border-radius:8px;padding:36px;">

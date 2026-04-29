@@ -55,7 +55,7 @@ $pageTitle = htmlspecialchars($product['name']) . ' — ShopWave';
             <p class="detail-desc"><?= nl2br(htmlspecialchars($product['description'])) ?></p>
 
             <?php if ($product['stock'] > 0): ?>
-                <form action="/cart_action.php" method="POST" style="display:flex;gap:16px;align-items:center;">
+                <form action="<?= BASE_URL ?>/cart_action.php" method="POST" style="display:flex;gap:16px;align-items:center;">
                     <?php csrf_field(); ?>
                     <input type="hidden" name="action" value="add">
                     <input type="hidden" name="product_id" value="<?= $product['id'] ?>">

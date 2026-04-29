@@ -49,7 +49,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Cart quantity update via AJAX
 function updateCartQty(productId, qty) {
-    fetch('cart_action.php', {
+    // Get BASE_URL from window object (will be set in header.php)
+    const baseUrl = window.BASE_URL || '';
+    fetch(baseUrl + '/cart_action.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: `action=update&product_id=${productId}&quantity=${qty}`

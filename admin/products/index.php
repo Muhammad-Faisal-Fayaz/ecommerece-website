@@ -61,7 +61,7 @@ $pageTitle = 'Manage Products — Admin';
                             <div style="display:flex;gap:8px;">
                                 <a href="<?= BASE_URL ?>/product.php?id=<?= $product['id'] ?>" class="btn btn-outline btn-sm" target="_blank">View</a>
                                 <a href="<?= BASE_URL ?>/admin/products/edit.php?id=<?= $product['id'] ?>" class="btn btn-dark btn-sm">Edit</a>
-                                <form method="POST" action="/admin/products/delete.php" style="display:inline;">
+                                <form method="POST" action="<?= BASE_URL ?>/admin/products/delete.php" style="display:inline;">
                                     <?php csrf_field(); ?>
                                     <input type="hidden" name="id" value="<?= $product['id'] ?>">
                                     <button type="submit" class="btn btn-danger btn-sm"
