@@ -4,6 +4,7 @@ session_start();
 require_once 'includes/db.php';
 require_once 'includes/auth.php';
 require_once 'includes/csrf.php';
+require_once 'includes/unsplash.php';
 
 $search   = trim($_GET['search']   ?? '');
 $category = trim($_GET['category'] ?? '');
@@ -108,11 +109,14 @@ $pageTitle = 'ShopWave — Premium Products';
                 <div class="product-card">
                     <div class="product-img">
                         <?php
+                        // Use Unsplash image directly
+                        $unsplashUrl = getUnsplashImage($product['name'], $product['category']);
                         $imgPath = 'images/products/' . $product['image'];
+                        
                         if ($product['image'] && file_exists($imgPath)): ?>
                             <img src="<?= BASE_URL ?>/<?= $imgPath ?>" alt="<?= htmlspecialchars($product['name']) ?>">
                         <?php else: ?>
-                            <span class="product-placeholder">📦</span>
+                            <img src="<?= htmlspecialchars($unsplashUrl) ?>" alt="<?= htmlspecialchars($product['name']) ?>" loading="lazy">
                         <?php endif; ?>
                         <?php if ($product['stock'] <= 5 && $product['stock'] > 0): ?>
                             <span class="product-badge">Low Stock</span>

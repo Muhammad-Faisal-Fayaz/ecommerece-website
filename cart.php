@@ -4,6 +4,7 @@ session_start();
 require_once 'includes/db.php';
 require_once 'includes/auth.php';
 require_once 'includes/csrf.php';
+require_once 'includes/unsplash.php';
 
 $cart  = getCart();
 $total = getCartTotal();
@@ -40,11 +41,14 @@ $pageTitle = 'Shopping Cart — ShopWave';
                             <tr>
                                 <td>
                                     <div class="cart-product-info">
-                                        <?php $imgPath = 'images/products/' . ($item['image'] ?? ''); ?>
+                                        <?php 
+                                        $unsplashUrl = getUnsplashImage($item['name'], $item['category']);
+                                        $imgPath = 'images/products/' . ($item['image'] ?? ''); 
+                                        ?>
                                         <?php if ($item['image'] && file_exists($imgPath)): ?>
                                             <img class="cart-thumb" src="<?= BASE_URL ?>/<?= $imgPath ?>" alt="">
                                         <?php else: ?>
-                                            <div class="cart-thumb" style="display:flex;align-items:center;justify-content:center;font-size:28px;">📦</div>
+                                            <img class="cart-thumb" src="<?= htmlspecialchars($unsplashUrl) ?>" alt="">
                                         <?php endif; ?>
                                         <div>
                                             <div class="cart-product-name">

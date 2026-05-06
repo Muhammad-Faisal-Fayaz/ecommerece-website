@@ -2,6 +2,7 @@
 // Temporary product seeding script
 session_start();
 require_once 'includes/db.php';
+require_once 'includes/unsplash.php';
 
 $categories = ['Electronics', 'Clothing', 'Accessories', 'Kitchen', 'Sports', 'Books', 'Home', 'Other'];
 
@@ -224,7 +225,11 @@ foreach ($categories as $category) {
     }
 }
 
-echo "<h2>✅ Successfully inserted $totalInserted products into the database!</h2>";
+echo "<h2> Successfully inserted $totalInserted products into the database!</h2>";
+echo "<p style='background:#e8f5e9;padding:12px;border-radius:4px;margin:16px 0;border-left:4px solid #4caf50;'>";
+echo "✓ <strong>Unsplash Images Enabled:</strong> All products now display beautiful images from Unsplash based on their category and name. ";
+echo "Images are loaded dynamically without storing them locally.";
+echo "</p>";
 echo "<p>Added 20+ products to each of the 8 categories:</p>";
 echo "<ul>";
 foreach ($categories as $cat) {

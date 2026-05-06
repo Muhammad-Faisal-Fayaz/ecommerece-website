@@ -4,6 +4,7 @@ session_start();
 require_once '../../includes/db.php';
 require_once '../../includes/auth.php';
 require_once '../../includes/csrf.php';
+require_once '../../includes/unsplash.php';
 requireAdmin();
 
 $flash    = getFlash();
@@ -36,12 +37,16 @@ $pageTitle = 'Manage Products — Admin';
                 <?php foreach ($products as $product): ?>
                     <tr>
                         <td>
-                            <?php $imgPath = '../../images/products/' . $product['image']; ?>
+                            <?php 
+                            $unsplashUrl = getUnsplashImage($product['name'], $product['category']);
+                            $imgPath = '../../images/products/' . $product['image']; 
+                            ?>
                             <?php if ($product['image'] && file_exists($imgPath)): ?>
                                 <img src="<?= BASE_URL ?>/images/products/<?= htmlspecialchars($product['image']) ?>"
                                     style="width:48px;height:48px;object-fit:cover;border-radius:4px;border:1px solid var(--light);">
                             <?php else: ?>
-                                <div style="width:48px;height:48px;background:var(--cream);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:20px;">📦</div>
+                                <img src="<?= htmlspecialchars($unsplashUrl) ?>" 
+                                    style="width:48px;height:48px;object-fit:cover;border-radius:4px;border:1px solid var(--light);">
                             <?php endif; ?>
                         </td>
                         <td>

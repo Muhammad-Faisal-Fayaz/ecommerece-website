@@ -4,6 +4,7 @@ session_start();
 require_once 'includes/db.php';
 require_once 'includes/auth.php';
 require_once 'includes/csrf.php';
+require_once 'includes/unsplash.php';
 
 $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 if (!$id) { header('Location: /index.php'); exit; }
@@ -31,11 +32,15 @@ $pageTitle = htmlspecialchars($product['name']) . ' — ShopWave';
     <div class="product-detail">
         <div class="detail-img">
             <?php
+            // Use Unsplash image directly
+            $unsplashUrl = getUnsplashImage($product['name'], $product['category']);
             $imgPath = 'images/products/' . $product['image'];
+            
+            // Try local image first, then fall back to Unsplash
             if ($product['image'] && file_exists($imgPath)): ?>
                 <img src="<?= BASE_URL ?>/<?= $imgPath ?>" alt="<?= htmlspecialchars($product['name']) ?>">
             <?php else: ?>
-                <span style="font-size:120px;opacity:0.2;">📦</span>
+                <img src="<?= htmlspecialchars($unsplashUrl) ?>" alt="<?= htmlspecialchars($product['name']) ?>" loading="lazy">
             <?php endif; ?>
         </div>
 
