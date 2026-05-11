@@ -13,6 +13,7 @@ $flash = getFlash();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $pageTitle ?? 'ShopWave' ?></title>
     <link rel="stylesheet" href="<?= BASE_URL ?>/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-papc9Ey0XbKcOd/qzTcq/1u1t5CidrE2VqQ2fz/E4dfH+r+Sa4Vgz1EHSxPuoogxKkwTjtg7atj2D/jkNNe6VQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛍</text></svg>">
 </head>
 <body>
@@ -36,7 +37,7 @@ $flash = getFlash();
                 <li><a href="<?= BASE_URL ?>/user/orders.php">My Orders</a></li>
                 <li>
                     <a href="<?= BASE_URL ?>/cart.php" class="nav-cart">
-                        🛒 Cart
+                        <i class="fas fa-shopping-cart"></i> Cart
                         <?php if ($cartCount > 0): ?>
                             <span class="cart-badge" id="cart-count"><?= $cartCount ?></span>
                         <?php else: ?>

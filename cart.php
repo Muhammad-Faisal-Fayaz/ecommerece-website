@@ -18,7 +18,7 @@ $pageTitle = 'Shopping Cart — ShopWave';
 
     <?php if (empty($cart)): ?>
         <div class="empty-state">
-            <div class="icon">🛒</div>
+            <div class="icon"><i class="fas fa-shopping-cart"></i></div>
             <h3>Your cart is empty</h3>
             <p>Looks like you haven't added anything yet.</p>
             <a href="<?= BASE_URL ?>/index.php" class="btn btn-primary">Start Shopping</a>
@@ -78,7 +78,7 @@ $pageTitle = 'Shopping Cart — ShopWave';
                                         <input type="hidden" name="action" value="remove">
                                         <input type="hidden" name="product_id" value="<?= $id ?>">
                                         <button type="submit" class="btn btn-danger btn-sm"
-                                            data-confirm="Remove this item from cart?">✕</button>
+                                            data-confirm="Remove this item from cart?"><i class="fas fa-times"></i></button>
                                     </form>
                                 </td>
                             </tr>

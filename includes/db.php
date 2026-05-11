@@ -11,7 +11,7 @@ define('DB_PASS', '');            // Change to your MySQL password
 define('DB_NAME', 'shopwave_db');
 
 // Base URL for all assets and links
-define('BASE_URL', '/ecommerce');
+define('BASE_URL', '/ecommerece');
 
 try {
     $pdo = new PDO(

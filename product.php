@@ -31,17 +31,8 @@ $pageTitle = htmlspecialchars($product['name']) . ' — ShopWave';
 
     <div class="product-detail">
         <div class="detail-img">
-            <?php
-            // Use Unsplash image directly
-            $unsplashUrl = getUnsplashImage($product['name'], $product['category']);
-            $imgPath = 'images/products/' . $product['image'];
-            
-            // Try local image first, then fall back to Unsplash
-            if ($product['image'] && file_exists($imgPath)): ?>
-                <img src="<?= BASE_URL ?>/<?= $imgPath ?>" alt="<?= htmlspecialchars($product['name']) ?>">
-            <?php else: ?>
-                <img src="<?= htmlspecialchars($unsplashUrl) ?>" alt="<?= htmlspecialchars($product['name']) ?>" loading="lazy">
-            <?php endif; ?>
+            <?php $imgUrl = resolveProductImageUrl($product); ?>
+            <img src="<?= htmlspecialchars($imgUrl) ?>" alt="<?= htmlspecialchars($product['name']) ?>" loading="lazy">
         </div>
 
         <div class="detail-info">
@@ -72,7 +63,7 @@ $pageTitle = htmlspecialchars($product['name']) . ' — ShopWave';
                     </div>
 
                     <button type="submit" class="btn btn-primary" style="flex:1;">
-                        🛒 Add to Cart
+                        <i class="fas fa-cart-plus"></i> Add to Cart
                     </button>
                 </form>
             <?php else: ?>
@@ -81,7 +72,7 @@ $pageTitle = htmlspecialchars($product['name']) . ' — ShopWave';
 
             <div style="margin-top:24px;padding-top:24px;border-top:1px solid var(--light);display:flex;gap:24px;">
                 <a href="<?= BASE_URL ?>/index.php" class="btn btn-outline">← Continue Shopping</a>
-                <a href="<?= BASE_URL ?>/cart.php" class="btn btn-dark">View Cart 🛒</a>
+                <a href="<?= BASE_URL ?>/cart.php" class="btn btn-dark"><i class="fas fa-shopping-cart"></i> View Cart</a>
             </div>
         </div>
     </div>

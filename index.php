@@ -108,16 +108,8 @@ $pageTitle = 'ShopWave — Premium Products';
             <?php foreach ($products as $product): ?>
                 <div class="product-card">
                     <div class="product-img">
-                        <?php
-                        // Use Unsplash image directly
-                        $unsplashUrl = getUnsplashImage($product['name'], $product['category']);
-                        $imgPath = 'images/products/' . $product['image'];
-                        
-                        if ($product['image'] && file_exists($imgPath)): ?>
-                            <img src="<?= BASE_URL ?>/<?= $imgPath ?>" alt="<?= htmlspecialchars($product['name']) ?>">
-                        <?php else: ?>
-                            <img src="<?= htmlspecialchars($unsplashUrl) ?>" alt="<?= htmlspecialchars($product['name']) ?>" loading="lazy">
-                        <?php endif; ?>
+                        <?php $imgUrl = resolveProductImageUrl($product); ?>
+                        <img src="<?= htmlspecialchars($imgUrl) ?>" alt="<?= htmlspecialchars($product['name']) ?>" loading="lazy">
                         <?php if ($product['stock'] <= 5 && $product['stock'] > 0): ?>
                             <span class="product-badge">Low Stock</span>
                         <?php elseif ($product['stock'] === 0): ?>
