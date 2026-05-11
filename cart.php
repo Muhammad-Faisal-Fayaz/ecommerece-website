@@ -41,15 +41,8 @@ $pageTitle = 'Shopping Cart — ShopWave';
                             <tr>
                                 <td>
                                     <div class="cart-product-info">
-                                        <?php 
-                                        $unsplashUrl = getUnsplashImage($item['name'], $item['category']);
-                                        $imgPath = 'images/products/' . ($item['image'] ?? ''); 
-                                        ?>
-                                        <?php if ($item['image'] && file_exists($imgPath)): ?>
-                                            <img class="cart-thumb" src="<?= BASE_URL ?>/<?= $imgPath ?>" alt="">
-                                        <?php else: ?>
-                                            <img class="cart-thumb" src="<?= htmlspecialchars($unsplashUrl) ?>" alt="">
-                                        <?php endif; ?>
+                                        <?php $imgUrl = getLocalProductImageUrl($item); ?>
+                                        <img class="cart-thumb" src="<?= htmlspecialchars($imgUrl) ?>" alt="">
                                         <div>
                                             <div class="cart-product-name">
                                                 <a href="<?= BASE_URL ?>/product.php?id=<?= $id ?>"><?= htmlspecialchars($item['name']) ?></a>

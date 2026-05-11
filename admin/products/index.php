@@ -37,17 +37,9 @@ $pageTitle = 'Manage Products — Admin';
                 <?php foreach ($products as $product): ?>
                     <tr>
                         <td>
-                            <?php 
-                            $unsplashUrl = getUnsplashImage($product['name'], $product['category']);
-                            $imgPath = '../../images/products/' . $product['image']; 
-                            ?>
-                            <?php if ($product['image'] && file_exists($imgPath)): ?>
-                                <img src="<?= BASE_URL ?>/images/products/<?= htmlspecialchars($product['image']) ?>"
-                                    style="width:48px;height:48px;object-fit:cover;border-radius:4px;border:1px solid var(--light);">
-                            <?php else: ?>
-                                <img src="<?= htmlspecialchars($unsplashUrl) ?>" 
-                                    style="width:48px;height:48px;object-fit:cover;border-radius:4px;border:1px solid var(--light);">
-                            <?php endif; ?>
+                            <?php $imgUrl = getLocalProductImageUrl($product); ?>
+                            <img src="<?= htmlspecialchars($imgUrl) ?>"
+                                style="width:48px;height:48px;object-fit:cover;border-radius:4px;border:1px solid var(--light);">
                         </td>
                         <td>
                             <strong><?= htmlspecialchars($product['name']) ?></strong>

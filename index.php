@@ -108,7 +108,7 @@ $pageTitle = 'ShopWave — Premium Products';
             <?php foreach ($products as $product): ?>
                 <div class="product-card">
                     <div class="product-img">
-                        <?php $imgUrl = resolveProductImageUrl($product); ?>
+                        <?php $imgUrl = getLocalProductImageUrl($product); ?>
                         <img src="<?= htmlspecialchars($imgUrl) ?>" alt="<?= htmlspecialchars($product['name']) ?>" loading="lazy">
                         <?php if ($product['stock'] <= 5 && $product['stock'] > 0): ?>
                             <span class="product-badge">Low Stock</span>

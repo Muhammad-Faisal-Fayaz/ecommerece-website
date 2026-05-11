@@ -42,6 +42,27 @@ function resolveProductImageUrl(array $product) {
 }
 
 /**
+ * Get local image URL only, without remote fetching.
+ */
+function getLocalProductImageUrl(array $product) {
+    $localFile = $product['image'] ?? '';
+    $localPath = __DIR__ . '/../images/products/' . basename($localFile);
+    if (!empty($localFile) && file_exists($localPath)) {
+        return BASE_URL . '/images/products/' . rawurlencode(basename($localFile));
+    }
+
+    return getRemoteFallbackImageUrl($product['name'], $product['category']);
+}
+
+/**
+ * Return a direct remote fallback URL for a product without blocking PHP.
+ */
+function getRemoteFallbackImageUrl($productName, $category) {
+    $seed = substr(md5(strtolower(trim($productName)) . '|' . strtolower(trim($category))), 0, 10);
+    return "https://picsum.photos/seed/{$seed}/600/600";
+}
+
+/**
  * Retrieve a remote image URL for a product using API or fallback.
  */
 function getProductRemoteImageUrl($productName, $category) {

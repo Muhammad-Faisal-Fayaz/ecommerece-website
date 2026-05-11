@@ -25,7 +25,7 @@ $flash = getFlash();
 
         <form class="nav-search" action="<?= BASE_URL ?>/index.php" method="GET">
             <input type="text" name="search" placeholder="Search products…" value="<?= sanitize($_GET['search'] ?? '') ?>">
-            <button type="submit">⌕</button>
+            <button type="submit"><i class="fas fa-search"></i></button>
         </form>
 
         <ul class="nav-links">
@@ -48,7 +48,7 @@ $flash = getFlash();
                 <li>
                     <form action="<?= BASE_URL ?>/user/logout.php" method="POST" style="display:inline">
                         <?php csrf_field(); ?>
-                        <button type="submit">Logout</button>
+                        <button type="submit"><i class="fas fa-right-from-bracket"></i> Logout</button>
                     </form>
                 </li>
             <?php else: ?>
