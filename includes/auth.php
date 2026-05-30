@@ -18,12 +18,16 @@ function isAdmin() {
 
 function requireLogin() {
     if (!isLoggedIn()) {
-        header('Location: ' . (defined('BASE_URL') ? BASE_URL : '') . '/user/login.php');
+        header('Location: ' . (defined('BASE_URL') ? BASE_URL : '') . '/landing.php');
         exit;
     }
 }
 
 function requireAdmin() {
+    if (!isLoggedIn()) {
+        header('Location: ' . (defined('BASE_URL') ? BASE_URL : '') . '/landing.php');
+        exit;
+    }
     if (!isAdmin()) {
         header('Location: ' . (defined('BASE_URL') ? BASE_URL : '') . '/index.php');
         exit;

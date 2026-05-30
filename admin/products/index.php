@@ -5,9 +5,11 @@ require_once '../../includes/db.php';
 require_once '../../includes/auth.php';
 require_once '../../includes/csrf.php';
 require_once '../../includes/unsplash.php';
+require_once '../../includes/inventory.php';
 requireAdmin();
 
 $flash    = getFlash();
+$lowStockThreshold = low_stock_threshold();
 $products = $pdo->query("SELECT * FROM products ORDER BY created_at DESC")->fetchAll();
 $pageTitle = 'Manage Products — Admin';
 ?>
@@ -50,9 +52,11 @@ $pageTitle = 'Manage Products — Admin';
                         <td><?= htmlspecialchars($product['category'] ?? '—') ?></td>
                         <td><strong>$<?= number_format($product['price'], 2) ?></strong></td>
                         <td>
-                            <span style="color:<?= $product['stock'] > 0 ? 'var(--success)' : 'var(--danger)' ?>;font-weight:600;">
-                                <?= $product['stock'] ?>
-                            </span>
+                            <?php
+                            $stock = (int) $product['stock'];
+                            $stockClass = $stock === 0 ? 'stock-out' : ($stock <= $lowStockThreshold ? 'stock-low' : 'stock-ok');
+                            ?>
+                            <span class="stock-badge <?= $stockClass ?>"><?= $stock ?></span>
                         </td>
                         <td>
                             <div style="display:flex;gap:8px;">

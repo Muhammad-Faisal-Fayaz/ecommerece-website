@@ -40,7 +40,14 @@ $pageTitle = 'Order #' . str_pad($order['id'], 6, '0', STR_PAD_LEFT) . ' — Adm
     <main class="admin-content">
         <div class="admin-header">
             <h1 class="admin-title">Order #<?= str_pad($order['id'], 6, '0', STR_PAD_LEFT) ?></h1>
-            <a href="<?= BASE_URL ?>/admin/orders/index.php" class="btn btn-outline">← All Orders</a>
+            <div style="display:flex;gap:12px;">
+                <?php if (($order['payment_status'] ?? '') === 'paid'): ?>
+                    <a href="<?= BASE_URL ?>/invoice.php?id=<?= $order['id'] ?>" class="btn btn-outline" target="_blank">
+                        <i class="fa-solid fa-file-pdf"></i> Invoice
+                    </a>
+                <?php endif; ?>
+                <a href="<?= BASE_URL ?>/admin/orders/index.php" class="btn btn-outline">← All Orders</a>
+            </div>
         </div>
 
         <div style="display:grid;grid-template-columns:1fr 300px;gap:32px;">
@@ -65,6 +72,13 @@ $pageTitle = 'Order #' . str_pad($order['id'], 6, '0', STR_PAD_LEFT) . ' — Adm
                         <div>
                             <div style="font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--mid);">Order Date</div>
                             <div style="margin-top:4px;"><?= date('M j, Y g:i A', strtotime($order['created_at'])) ?></div>
+                        </div>
+                        <div>
+                            <div style="font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--mid);">Payment</div>
+                            <div style="margin-top:4px;font-weight:500;">
+                                <?= ($order['payment_method'] ?? 'cod') === 'stripe' ? 'Stripe' : 'COD' ?>
+                                — <?= ucfirst($order['payment_status'] ?? 'pending') ?>
+                            </div>
                         </div>
                         <div style="grid-column:1/-1;">
                             <div style="font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--mid);">Address</div>

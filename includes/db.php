@@ -4,7 +4,7 @@
 // File: /includes/db.php
 // ============================================================
 
-define('DB_HOST', 'localhost');
+define('DB_HOST', '127.0.0.1');   // Use 127.0.0.1 on Windows if localhost fails
 define('DB_PORT', '3306');
 define('DB_USER', 'root');        // Change to your MySQL username
 define('DB_PASS', '');            // Change to your MySQL password

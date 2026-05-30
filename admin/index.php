@@ -4,9 +4,13 @@ session_start();
 require_once '../includes/db.php';
 require_once '../includes/auth.php';
 require_once '../includes/csrf.php';
+require_once '../includes/inventory.php';
 requireAdmin();
 
 $flash = getFlash();
+$lowStockProducts = get_low_stock_products($pdo);
+$outOfStockCount  = count_out_of_stock($pdo);
+$lowStockThreshold = low_stock_threshold();
 
 // Stats
 $totalProducts = $pdo->query("SELECT COUNT(*) FROM products")->fetchColumn();
@@ -29,6 +33,26 @@ $pageTitle = 'Admin Dashboard — ShopWave';
             <h1 class="admin-title">Dashboard</h1>
             <a href="<?= BASE_URL ?>/admin/products/create.php" class="btn btn-primary">+ Add Product</a>
         </div>
+
+        <?php if (!empty($lowStockProducts)): ?>
+            <div class="alert-banner alert-banner-warning">
+                <div>
+                    <strong><i class="fa-solid fa-triangle-exclamation"></i> Low stock alert</strong>
+                    <span><?= count($lowStockProducts) ?> product(s) at or below <?= $lowStockThreshold ?> units
+                        <?php if ($outOfStockCount > 0): ?> — <?= $outOfStockCount ?> out of stock<?php endif; ?>
+                    </span>
+                </div>
+                <a href="<?= BASE_URL ?>/admin/products/index.php" class="btn btn-outline btn-sm">View products</a>
+            </div>
+            <div class="low-stock-list">
+                <?php foreach (array_slice($lowStockProducts, 0, 6) as $p): ?>
+                    <a href="<?= BASE_URL ?>/admin/products/edit.php?id=<?= $p['id'] ?>" class="low-stock-chip <?= (int)$p['stock'] === 0 ? 'low-stock-chip-danger' : '' ?>">
+                        <?= htmlspecialchars($p['name']) ?>
+                        <span><?= (int) $p['stock'] ?> left</span>
+                    </a>
+                <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
 
         <div class="stat-cards">
             <div class="stat-card">
